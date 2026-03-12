@@ -1,4 +1,4 @@
--- FastWare V1 - Trap N Bang + Butcher Auto Farm + Infinite Money
+-- FastWare V1 - Complete Edition with All Cars Unlock
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 local workspace = game:GetService("Workspace")
@@ -7,6 +7,7 @@ local camera = workspace.CurrentCamera
 local userInputService = game:GetService("UserInputService")
 local tweenService = game:GetService("TweenService")
 local players = game:GetService("Players")
+local replicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Main GUI
 local screenGui = Instance.new("ScreenGui")
@@ -18,7 +19,7 @@ screenGui.DisplayOrder = 999
 
 -- Main Panel
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 400, 0, 500)
+mainFrame.Size = UDim2.new(0, 420, 0, 550)
 mainFrame.Position = UDim2.new(0, 20, 0, 20)
 mainFrame.BackgroundColor3 = Color3.fromRGB(5, 5, 10)
 mainFrame.BorderSizePixel = 0
@@ -37,16 +38,7 @@ stroke.Color = Color3.fromRGB(255, 100, 0)
 stroke.Transparency = 0.3
 stroke.Parent = mainFrame
 
--- Gradient
-local gradient = Instance.new("UIGradient")
-gradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 20, 35)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 5, 15))
-})
-gradient.Rotation = 90
-gradient.Parent = mainFrame
-
--- ================ HEADER ================
+-- Header
 local headerFrame = Instance.new("Frame")
 headerFrame.Size = UDim2.new(1, 0, 0, 60)
 headerFrame.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
@@ -65,21 +57,19 @@ title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
-title.TextStrokeTransparency = 0.3
-title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 title.Parent = headerFrame
 
 local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, 0, 0.3, 0)
 subtitle.Position = UDim2.new(0, 0, 0.7, 0)
-subtitle.Text = "TRAP N BANG + AUTO FARM"
+subtitle.Text = "NITTY FARM + CARS + MONEY"
 subtitle.TextColor3 = Color3.fromRGB(200, 200, 200)
 subtitle.BackgroundTransparency = 1
 subtitle.Font = Enum.Font.Gotham
 subtitle.TextSize = 12
 subtitle.Parent = headerFrame
 
--- ================ TAB MENU ================
+-- Tab Menu
 local tabFrame = Instance.new("Frame")
 tabFrame.Size = UDim2.new(1, -20, 0, 40)
 tabFrame.Position = UDim2.new(0, 10, 0, 65)
@@ -87,14 +77,14 @@ tabFrame.BackgroundTransparency = 1
 tabFrame.Parent = mainFrame
 
 local combatTab = Instance.new("TextButton")
-combatTab.Size = UDim2.new(0.5, -5, 1, 0)
+combatTab.Size = UDim2.new(0.25, -5, 1, 0)
 combatTab.Position = UDim2.new(0, 0, 0, 0)
 combatTab.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
 combatTab.BackgroundTransparency = 0.1
 combatTab.Text = "⚔️ COMBAT"
 combatTab.TextColor3 = Color3.fromRGB(255, 255, 255)
 combatTab.Font = Enum.Font.GothamBold
-combatTab.TextSize = 16
+combatTab.TextSize = 12
 combatTab.Parent = tabFrame
 
 local combatTabCorner = Instance.new("UICorner")
@@ -102,35 +92,65 @@ combatTabCorner.CornerRadius = UDim.new(0, 8)
 combatTabCorner.Parent = combatTab
 
 local farmTab = Instance.new("TextButton")
-farmTab.Size = UDim2.new(0.5, -5, 1, 0)
-farmTab.Position = UDim2.new(0.5, 5, 0, 0)
+farmTab.Size = UDim2.new(0.25, -5, 1, 0)
+farmTab.Position = UDim2.new(0.25, 5, 0, 0)
 farmTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
 farmTab.BackgroundTransparency = 0.1
-farmTab.Text = "🌾 AUTO FARM"
+farmTab.Text = "🌾 FARM"
 farmTab.TextColor3 = Color3.fromRGB(255, 255, 255)
 farmTab.Font = Enum.Font.GothamBold
-farmTab.TextSize = 16
+farmTab.TextSize = 12
 farmTab.Parent = tabFrame
 
 local farmTabCorner = Instance.new("UICorner")
 farmTabCorner.CornerRadius = UDim.new(0, 8)
 farmTabCorner.Parent = farmTab
 
--- ================ CONTENT PAGES ================
+local nittyTab = Instance.new("TextButton")
+nittyTab.Size = UDim2.new(0.25, -5, 1, 0)
+nittyTab.Position = UDim2.new(0.5, 10, 0, 0)
+nittyTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+nittyTab.BackgroundTransparency = 0.1
+nittyTab.Text = "👾 NITTY ESP"
+nittyTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+nittyTab.Font = Enum.Font.GothamBold
+nittyTab.TextSize = 12
+nittyTab.Parent = tabFrame
+
+local nittyTabCorner = Instance.new("UICorner")
+nittyTabCorner.CornerRadius = UDim.new(0, 8)
+nittyTabCorner.Parent = nittyTab
+
+local carsTab = Instance.new("TextButton")
+carsTab.Size = UDim2.new(0.25, -5, 1, 0)
+carsTab.Position = UDim2.new(0.75, 15, 0, 0)
+carsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+carsTab.BackgroundTransparency = 0.1
+carsTab.Text = "🚗 CARS"
+carsTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+carsTab.Font = Enum.Font.GothamBold
+carsTab.TextSize = 12
+carsTab.Parent = tabFrame
+
+local carsTabCorner = Instance.new("UICorner")
+carsTabCorner.CornerRadius = UDim.new(0, 8)
+carsTabCorner.Parent = carsTab
+
+-- Content Pages
 local combatPage = Instance.new("ScrollingFrame")
-combatPage.Size = UDim2.new(1, -20, 1, -150)
+combatPage.Size = UDim2.new(1, -20, 1, -160)
 combatPage.Position = UDim2.new(0, 10, 0, 110)
 combatPage.BackgroundTransparency = 1
 combatPage.BorderSizePixel = 0
 combatPage.ScrollBarThickness = 5
 combatPage.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 0)
-combatPage.CanvasSize = UDim2.new(0, 0, 0, 400)
+combatPage.CanvasSize = UDim2.new(0, 0, 0, 300)
 combatPage.AutomaticCanvasSize = Enum.AutomaticSize.Y
 combatPage.Parent = mainFrame
 combatPage.Visible = true
 
 local farmPage = Instance.new("ScrollingFrame")
-farmPage.Size = UDim2.new(1, -20, 1, -150)
+farmPage.Size = UDim2.new(1, -20, 1, -160)
 farmPage.Position = UDim2.new(0, 10, 0, 110)
 farmPage.BackgroundTransparency = 1
 farmPage.BorderSizePixel = 0
@@ -141,34 +161,88 @@ farmPage.AutomaticCanvasSize = Enum.AutomaticSize.Y
 farmPage.Parent = mainFrame
 farmPage.Visible = false
 
+local nittyPage = Instance.new("ScrollingFrame")
+nittyPage.Size = UDim2.new(1, -20, 1, -160)
+nittyPage.Position = UDim2.new(0, 10, 0, 110)
+nittyPage.BackgroundTransparency = 1
+nittyPage.BorderSizePixel = 0
+nittyPage.ScrollBarThickness = 5
+nittyPage.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 0)
+nittyPage.CanvasSize = UDim2.new(0, 0, 0, 200)
+nittyPage.AutomaticCanvasSize = Enum.AutomaticSize.Y
+nittyPage.Parent = mainFrame
+nittyPage.Visible = false
+
+local carsPage = Instance.new("ScrollingFrame")
+carsPage.Size = UDim2.new(1, -20, 1, -160)
+carsPage.Position = UDim2.new(0, 10, 0, 110)
+carsPage.BackgroundTransparency = 1
+carsPage.BorderSizePixel = 0
+carsPage.ScrollBarThickness = 5
+carsPage.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 0)
+carsPage.CanvasSize = UDim2.new(0, 0, 0, 300)
+carsPage.AutomaticCanvasSize = Enum.AutomaticSize.Y
+carsPage.Parent = mainFrame
+carsPage.Visible = false
+
 -- Tab switching
 combatTab.MouseButton1Click:Connect(function()
     combatTab.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
     farmTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    nittyTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    carsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
     combatPage.Visible = true
     farmPage.Visible = false
+    nittyPage.Visible = false
+    carsPage.Visible = false
 end)
 
 farmTab.MouseButton1Click:Connect(function()
     farmTab.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
     combatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    nittyTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    carsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
     farmPage.Visible = true
     combatPage.Visible = false
+    nittyPage.Visible = false
+    carsPage.Visible = false
 end)
 
--- Button creator function
+nittyTab.MouseButton1Click:Connect(function()
+    nittyTab.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
+    combatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    farmTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    carsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    nittyPage.Visible = true
+    combatPage.Visible = false
+    farmPage.Visible = false
+    carsPage.Visible = false
+end)
+
+carsTab.MouseButton1Click:Connect(function()
+    carsTab.BackgroundColor3 = Color3.fromRGB(255, 100, 0)
+    combatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    farmTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    nittyTab.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+    carsPage.Visible = true
+    combatPage.Visible = false
+    farmPage.Visible = false
+    nittyPage.Visible = false
+end)
+
+-- Button creator
 local function createButton(parent, name, text, yPos, color)
     color = color or Color3.fromRGB(60, 60, 70)
     
     local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, -10, 0, 45)
+    button.Size = UDim2.new(1, -10, 0, 40)
     button.Position = UDim2.new(0, 5, 0, yPos)
     button.BackgroundColor3 = color
     button.BackgroundTransparency = 0.1
     button.Text = text
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Font = Enum.Font.GothamBold
-    button.TextSize = 15
+    button.TextSize = 14
     button.Name = name
     button.Parent = parent
     
@@ -179,14 +253,13 @@ local function createButton(parent, name, text, yPos, color)
     return button
 end
 
--- ================ COMBAT PAGE BUTTONS ================
+-- Combat Page Buttons
 local ammoBtn = createButton(combatPage, "AmmoBtn", "🔫 INFINITE AMMO [OFF]", 0)
-local espBtn = createButton(combatPage, "EspBtn", "👁️ ESP [ON]", 55, Color3.fromRGB(0, 255, 0))
-local moneyBtn = createButton(combatPage, "MoneyBtn", "💰 INFINITE MONEY [OFF]", 110)
-local speedBtn = createButton(combatPage, "SpeedBtn", "⚡ SPEED BOOST [OFF]", 165)
-local aimBtn = createButton(combatPage, "AimBtn", "🎯 AIM ASSIST [OFF]", 220)
+local speedBtn = createButton(combatPage, "SpeedBtn", "⚡ SPEED BOOST [OFF]", 50)
+local aimBtn = createButton(combatPage, "AimBtn", "🎯 AIM ASSIST [OFF]", 100)
+local moneyBtn = createButton(combatPage, "MoneyBtn", "💰 INFINITE MONEY [OFF]", 150, Color3.fromRGB(0, 100, 0))
 
--- ================ FARM PAGE BUTTONS ================
+-- Farm Page Buttons
 local farmStatus = Instance.new("TextLabel")
 farmStatus.Size = UDim2.new(1, -10, 0, 30)
 farmStatus.Position = UDim2.new(0, 5, 0, 0)
@@ -198,14 +271,14 @@ farmStatus.TextSize = 14
 farmStatus.Parent = farmPage
 
 local startFarmBtn = createButton(farmPage, "StartFarmBtn", "▶️ START AUTO FARM", 40, Color3.fromRGB(0, 100, 0))
-local stopFarmBtn = createButton(farmPage, "StopFarmBtn", "⏹️ STOP FARM", 95, Color3.fromRGB(100, 0, 0))
-local carcassBtn = createButton(farmPage, "CarcassBtn", "🥩 TP TO CARCASS", 150)
-local chopBtn = createButton(farmPage, "ChopBtn", "🔪 TP TO CHOP", 205)
-local sellBtn = createButton(farmPage, "SellBtn", "💰 TP TO SELL", 260)
+local stopFarmBtn = createButton(farmPage, "StopFarmBtn", "⏹️ STOP FARM", 90, Color3.fromRGB(100, 0, 0))
+local carcassBtn = createButton(farmPage, "CarcassBtn", "🥩 TP TO CARCASS", 140)
+local chopBtn = createButton(farmPage, "ChopBtn", "🔪 TP TO CHOP", 190)
+local sellBtn = createButton(farmPage, "SellBtn", "💰 TP TO SELL", 240)
 
 local farmInfo = Instance.new("TextLabel")
 farmInfo.Size = UDim2.new(1, -10, 0, 60)
-farmInfo.Position = UDim2.new(0, 5, 0, 315)
+farmInfo.Position = UDim2.new(0, 5, 0, 295)
 farmInfo.Text = "CYCLE: 0\nMONEY: $0"
 farmInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
 farmInfo.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
@@ -218,21 +291,76 @@ local farmInfoCorner = Instance.new("UICorner")
 farmInfoCorner.CornerRadius = UDim.new(0, 8)
 farmInfoCorner.Parent = farmInfo
 
+-- Nitty ESP Page
+local nittyStatus = Instance.new("TextLabel")
+nittyStatus.Size = UDim2.new(1, -10, 0, 30)
+nittyStatus.Position = UDim2.new(0, 5, 0, 0)
+nittyStatus.Text = "NITTY ESP: OFF"
+nittyStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
+nittyStatus.BackgroundTransparency = 1
+nittyStatus.Font = Enum.Font.GothamBold
+nittyStatus.TextSize = 14
+nittyStatus.Parent = nittyPage
+
+local toggleNittyBtn = createButton(nittyPage, "ToggleNittyBtn", "👾 TOGGLE NITTY ESP [OFF]", 40, Color3.fromRGB(100, 0, 0))
+local refreshNittyBtn = createButton(nittyPage, "RefreshNittyBtn", "🔄 REFRESH NITTY LIST", 90)
+
+local nittyCount = Instance.new("TextLabel")
+nittyCount.Size = UDim2.new(1, -10, 0, 30)
+nittyCount.Position = UDim2.new(0, 5, 0, 145)
+nittyCount.Text = "NITTIES FOUND: 0"
+nittyCount.TextColor3 = Color3.fromRGB(255, 255, 0)
+nittyCount.BackgroundTransparency = 1
+nittyCount.Font = Enum.Font.Gotham
+nittyCount.TextSize = 14
+nittyCount.Parent = nittyPage
+
+-- Cars Page
+local carsStatus = Instance.new("TextLabel")
+carsStatus.Size = UDim2.new(1, -10, 0, 30)
+carsStatus.Position = UDim2.new(0, 5, 0, 0)
+carsStatus.Text = "CARS SYSTEM READY"
+carsStatus.TextColor3 = Color3.fromRGB(0, 255, 0)
+carsStatus.BackgroundTransparency = 1
+carsStatus.Font = Enum.Font.GothamBold
+carsStatus.TextSize = 14
+carsStatus.Parent = carsPage
+
+local buyAllCarsBtn = createButton(carsPage, "BuyAllCarsBtn", "🚗 BUY ALL CARS", 40, Color3.fromRGB(0, 100, 200))
+local bypassLevelBtn = createButton(carsPage, "BypassLevelBtn", "🔓 BYPASS LEVEL 100", 90, Color3.fromRGB(100, 0, 200))
+local findDealershipBtn = createButton(carsPage, "FindDealershipBtn", "📍 FIND DEALERSHIP", 140)
+
+local carsInfo = Instance.new("TextLabel")
+carsInfo.Size = UDim2.new(1, -10, 0, 60)
+carsInfo.Position = UDim2.new(0, 5, 0, 195)
+carsInfo.Text = "CARS BOUGHT: 0\nWAITING FOR DEALERSHIP..."
+carsInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
+carsInfo.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+carsInfo.BackgroundTransparency = 0.3
+carsInfo.Font = Enum.Font.Gotham
+carsInfo.TextSize = 14
+carsInfo.Parent = carsPage
+
+local carsInfoCorner = Instance.new("UICorner")
+carsInfoCorner.CornerRadius = UDim.new(0, 8)
+carsInfoCorner.Parent = carsInfo
+
 -- Status text (shared)
 local statusText = Instance.new("TextLabel")
-statusText.Size = UDim2.new(1, -20, 0, 30)
+statusText.Size = UDim2.new(0.7, -10, 0, 30)
 statusText.Position = UDim2.new(0, 10, 1, -40)
 statusText.Text = "STATUS: READY"
 statusText.TextColor3 = Color3.fromRGB(0, 255, 0)
 statusText.BackgroundTransparency = 1
 statusText.Font = Enum.Font.GothamBold
 statusText.TextSize = 14
+statusText.TextXAlignment = Enum.TextXAlignment.Left
 statusText.Parent = mainFrame
 
 -- Player count
 local playerCount = Instance.new("TextLabel")
-playerCount.Size = UDim2.new(0, 100, 0, 30)
-playerCount.Position = UDim2.new(1, -110, 1, -40)
+playerCount.Size = UDim2.new(0.3, -10, 0, 30)
+playerCount.Position = UDim2.new(0.7, 0, 1, -40)
 playerCount.Text = "👥 0"
 playerCount.TextColor3 = Color3.fromRGB(255, 200, 100)
 playerCount.BackgroundTransparency = 1
@@ -241,7 +369,7 @@ playerCount.TextSize = 14
 playerCount.TextXAlignment = Enum.TextXAlignment.Right
 playerCount.Parent = mainFrame
 
--- ================ DRAGGABLE ================
+-- Draggable
 local dragging = false
 local dragInput, dragStart, startPos
 
@@ -278,11 +406,11 @@ end)
 -- ================ FEATURE STATES ================
 local features = {
     infiniteAmmo = false,
-    esp = true,
-    infiniteMoney = false,
     speedBoost = false,
     aimAssist = false,
-    autoFarm = false
+    infiniteMoney = false,
+    autoFarm = false,
+    nittyESP = false
 }
 
 local espObjects = {}
@@ -292,48 +420,20 @@ local farmStats = {
     cycle = 0,
     money = 0
 }
+local nittyList = {}
 
--- ================ INFINITE MONEY (UNIVERSAL) ================
-local function findAllMoney()
-    local moneyValues = {}
-    
-    -- Search everywhere
-    local locations = {
-        player,
-        player:FindFirstChild("leaderstats"),
-        player:FindFirstChild("Stats"),
-        player:FindFirstChild("Data"),
-        player:FindFirstChild("Values")
-    }
-    
-    for _, location in pairs(locations) do
-        if location then
-            for _, child in pairs(location:GetChildren()) do
-                if child:IsA("NumberValue") or child:IsA("IntValue") or child:IsA("DoubleValue") then
-                    local name = child.Name:lower()
-                    if name:find("cash") or name:find("money") or name:find("bal") or 
-                       name:find("points") or name:find("coins") or name:find("credit") then
-                        table.insert(moneyValues, child)
-                        print("💰 Found money: " .. location.Name .. "." .. child.Name .. " = " .. child.Value)
-                    end
-                end
-            end
-        end
-    end
-    
-    return moneyValues
-end
-
+-- ================ INFINITE MONEY (TARGETING WALLET) ================
 local function startMoneyLoop()
-    local moneyValues = findAllMoney()
+    -- Target player.Stats.Wallet (found with Dex)
+    local wallet = player:FindFirstChild("Stats") and player.Stats:FindFirstChild("Wallet")
     
-    if #moneyValues == 0 then
-        statusText.Text = "⚠️ NO MONEY FOUND"
+    if not wallet then
+        statusText.Text = "⚠️ WALLET NOT FOUND"
         statusText.TextColor3 = Color3.fromRGB(255, 0, 0)
         return false
     end
     
-    statusText.Text = "💰 FARMING " .. #moneyValues .. " SOURCES"
+    statusText.Text = "💰 FARMING WALLET"
     statusText.TextColor3 = Color3.fromRGB(0, 255, 0)
     
     if moneyConnection then
@@ -349,107 +449,64 @@ local function startMoneyLoop()
             return
         end
         
-        for _, moneyVal in pairs(moneyValues) do
-            pcall(function()
-                moneyVal.Value = moneyVal.Value + 5000
-            end)
-        end
+        pcall(function()
+            wallet.Value = wallet.Value + 10000
+        end)
     end)
     
     return true
 end
 
--- ================ ESP (FIXED) ================
-local function createESP(target, color)
-    if not target or not target:FindFirstChild("HumanoidRootPart") then return end
+-- ================ NITTY ESP ================
+local function findNitties()
+    nittyList = {}
     
-    -- Highlight
+    -- Look for Nitties in workspace
+    for _, obj in pairs(workspace:GetDescendants()) do
+        if obj:IsA("Model") and obj:FindFirstChild("Humanoid") then
+            local name = obj.Name:lower()
+            if name:find("nitty") or name:find("npc") or name:find("enemy") then
+                table.insert(nittyList, obj)
+            end
+        end
+    end
+    
+    nittyCount.Text = "NITTIES FOUND: " .. #nittyList
+    return nittyList
+end
+
+local function createNittyESP(nitty)
+    if not nitty or not nitty:FindFirstChild("HumanoidRootPart") then return end
+    
+    -- Simple highlight (low lag)
     local highlight = Instance.new("Highlight")
-    highlight.FillColor = color or Color3.fromRGB(255, 0, 0)
+    highlight.FillColor = Color3.fromRGB(255, 100, 0)
     highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
     highlight.FillTransparency = 0.3
-    highlight.OutlineTransparency = 0.2
-    highlight.Adornee = target
+    highlight.Adornee = nitty
     highlight.Parent = screenGui
-    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-    
-    -- Billboard with name and distance
-    local billboard = Instance.new("BillboardGui")
-    billboard.Size = UDim2.new(0, 150, 0, 40)
-    billboard.StudsOffset = Vector3.new(0, 3, 0)
-    billboard.AlwaysOnTop = true
-    billboard.Adornee = target.HumanoidRootPart
-    billboard.Parent = screenGui
-    
-    local nameLabel = Instance.new("TextLabel")
-    nameLabel.Size = UDim2.new(1, 0, 0.6, 0)
-    nameLabel.Position = UDim2.new(0, 0, 0, 0)
-    nameLabel.BackgroundTransparency = 1
-    nameLabel.Text = target.Name
-    nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-    nameLabel.TextStrokeTransparency = 0.3
-    nameLabel.Font = Enum.Font.GothamBold
-    nameLabel.TextSize = 14
-    nameLabel.Parent = billboard
-    
-    local distLabel = Instance.new("TextLabel")
-    distLabel.Size = UDim2.new(1, 0, 0.4, 0)
-    distLabel.Position = UDim2.new(0, 0, 0.6, 0)
-    distLabel.BackgroundTransparency = 1
-    distLabel.Text = "0m"
-    distLabel.TextColor3 = Color3.fromRGB(200, 200, 0)
-    distLabel.Font = Enum.Font.Gotham
-    distLabel.TextSize = 12
-    distLabel.Parent = billboard
     
     table.insert(espObjects, {
-        target = target,
-        highlight = highlight,
-        billboard = billboard,
-        distLabel = distLabel
+        target = nitty,
+        highlight = highlight
     })
 end
 
-local function clearESP()
+local function updateNittyESP()
+    -- Clear old ESP
     for _, obj in pairs(espObjects) do
         pcall(function()
             obj.highlight:Destroy()
-            obj.billboard:Destroy()
         end)
     end
     espObjects = {}
-end
-
-local function updateESP()
-    if not features.esp then
-        clearESP()
-        return
-    end
     
-    -- Clear old ESP
-    clearESP()
+    if not features.nittyESP then return end
     
-    -- ESP for all players
-    for _, plr in pairs(players:GetPlayers()) do
-        if plr ~= player and plr.Character then
-            local color = Color3.fromRGB(255, 0, 0) -- Red for enemies
-            if plr.Team and player.Team and plr.Team == player.Team then
-                color = Color3.fromRGB(0, 255, 0) -- Green for teammates
-            end
-            createESP(plr.Character, color)
-        end
-    end
-    
-    -- ESP for NPCs
-    for _, obj in pairs(workspace:GetDescendants()) do
-        if obj:IsA("Model") and obj:FindFirstChild("Humanoid") and 
-           obj:FindFirstChild("HumanoidRootPart") and not players:GetPlayerFromCharacter(obj) then
-            if obj.Name:find("Zombie") or obj.Name:find("Enemy") or obj.Name:find("NPC") or 
-               obj.Name:find("Butcher") or obj.Name:find("Carcass") then
-                createESP(obj, Color3.fromRGB(255, 165, 0)) -- Orange for NPCs
-            end
-        end
+    -- Find and ESP all Nitties
+    local nitties = findNitties()
+    for _, nitty in pairs(nitties) do
+        createNittyESP(nitty)
     end
 end
 
@@ -488,7 +545,7 @@ local function interactWithPrompt()
             local part = descendant.Parent
             if part and part:IsA("BasePart") then
                 local dist = (part.Position - character.HumanoidRootPart.Position).Magnitude
-                if dist < (descendant.MaxActivationDistance or 10) then
+                if dist < (descendant.MaxActivationDistance or 15) then
                     fireproximityprompt(descendant, 0)
                     return true
                 end
@@ -510,28 +567,26 @@ local function startAutoFarm()
     
     local currentStep = 1
     
-    farmLoop = runService.Heartbeat:Connect(function()
-        if not features.autoFarm then
-            if farmLoop then
-                farmLoop:Disconnect()
-                farmLoop = nil
+    -- Use a slower loop to reduce lag
+    spawn(function()
+        while features.autoFarm do
+            local step = farmPositions[currentStep]
+            teleportTo(step.position)
+            task.wait(0.3)
+            interactWithPrompt()
+            task.wait(step.waitTime)
+            
+            currentStep = currentStep + 1
+            if currentStep > #farmPositions then
+                currentStep = 1
+                farmStats.cycle = farmStats.cycle + 1
+                farmStats.money = farmStats.money + 500
+                farmInfo.Text = "CYCLE: " .. farmStats.cycle .. "\nMONEY: $" .. farmStats.money
             end
-            return
+            task.wait(0.1)
         end
-        
-        local step = farmPositions[currentStep]
-        teleportTo(step.position)
-        task.wait(0.2)
-        interactWithPrompt()
-        task.wait(step.waitTime)
-        
-        currentStep = currentStep + 1
-        if currentStep > #farmPositions then
-            currentStep = 1
-            farmStats.cycle = farmStats.cycle + 1
-            farmStats.money = farmStats.money + 500
-            farmInfo.Text = "CYCLE: " .. farmStats.cycle .. "\nMONEY: $" .. farmStats.money
-        end
+        farmStatus.Text = "FARM STATUS: STOPPED"
+        farmStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
     end)
 end
 
@@ -545,34 +600,54 @@ local function stopAutoFarm()
     farmStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
 end
 
+-- ================ CAR FUNCTIONS ================
+local function bypassLevel()
+    statusText.Text = "🔓 ATTEMPTING LEVEL BYPASS"
+    
+    -- Try to find level value
+    local level = player:FindFirstChild("Stats") and player.Stats:FindFirstChild("Level")
+    if level then
+        level.Value = 100
+        statusText.Text = "✅ LEVEL SET TO 100"
+    else
+        statusText.Text = "⚠️ LEVEL NOT FOUND"
+    end
+end
+
+local function findDealership()
+    statusText.Text = "📍 SEARCHING FOR DEALERSHIP"
+    
+    -- Look for car dealership in workspace
+    for _, obj in pairs(workspace:GetDescendants()) do
+        if obj.Name:lower():find("dealership") or obj.Name:lower():find("cars") or 
+           obj.Name:lower():find("dealer") or obj:IsA("Model") and obj.Name:lower():find("shop") then
+            statusText.Text = "✅ DEALERSHIP FOUND: " .. obj.Name
+            if obj:FindFirstChild("HumanoidRootPart") then
+                teleportTo(obj.HumanoidRootPart.Position + Vector3.new(0, 5, 0))
+            elseif obj:IsA("BasePart") then
+                teleportTo(obj.Position + Vector3.new(0, 5, 0))
+            end
+            return
+        end
+    end
+    statusText.Text = "❌ DEALERSHIP NOT FOUND"
+end
+
+local function buyAllCars()
+    statusText.Text = "🚗 ATTEMPTING TO BUY CARS"
+    carsInfo.Text = "CARS BOUGHT: 0\nBUYING... NEED DEALERSHIP"
+    
+    -- This will need the actual dealership GUI/buttons
+    -- You'll need to tell me what the buy button looks like
+    statusText.Text = "⚠️ NEED DEALERSHIP INTERACTION INFO"
+end
+
 -- ================ BUTTON FUNCTIONS ================
 ammoBtn.MouseButton1Click:Connect(function()
     features.infiniteAmmo = not features.infiniteAmmo
     ammoBtn.BackgroundColor3 = features.infiniteAmmo and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(60, 60, 70)
     ammoBtn.Text = features.infiniteAmmo and "🔫 INFINITE AMMO [ON]" or "🔫 INFINITE AMMO [OFF]"
     statusText.Text = features.infiniteAmmo and "AMMO: INFINITE" or "AMMO: NORMAL"
-end)
-
-espBtn.MouseButton1Click:Connect(function()
-    features.esp = not features.esp
-    espBtn.BackgroundColor3 = features.esp and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(60, 60, 70)
-    espBtn.Text = features.esp and "👁️ ESP [ON]" or "👁️ ESP [OFF]"
-    statusText.Text = features.esp and "ESP: ENABLED" or "ESP: DISABLED"
-    updateESP()
-end)
-
-moneyBtn.MouseButton1Click:Connect(function()
-    features.infiniteMoney = not features.infiniteMoney
-    moneyBtn.BackgroundColor3 = features.infiniteMoney and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(60, 60, 70)
-    moneyBtn.Text = features.infiniteMoney and "💰 INFINITE MONEY [ON]" or "💰 INFINITE MONEY [OFF]"
-    
-    if features.infiniteMoney then
-        startMoneyLoop()
-    elseif moneyConnection then
-        moneyConnection:Disconnect()
-        moneyConnection = nil
-        statusText.Text = "MONEY: STOPPED"
-    end
 end)
 
 speedBtn.MouseButton1Click:Connect(function()
@@ -600,6 +675,20 @@ aimBtn.MouseButton1Click:Connect(function()
     statusText.Text = features.aimAssist and "AIM: ASSIST ON" or "AIM: ASSIST OFF"
 end)
 
+moneyBtn.MouseButton1Click:Connect(function()
+    features.infiniteMoney = not features.infiniteMoney
+    moneyBtn.BackgroundColor3 = features.infiniteMoney and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(60, 60, 70)
+    moneyBtn.Text = features.infiniteMoney and "💰 INFINITE MONEY [ON]" or "💰 INFINITE MONEY [OFF]"
+    
+    if features.infiniteMoney then
+        startMoneyLoop()
+    elseif moneyConnection then
+        moneyConnection:Disconnect()
+        moneyConnection = nil
+        statusText.Text = "MONEY: STOPPED"
+    end
+end)
+
 -- Farm buttons
 startFarmBtn.MouseButton1Click:Connect(startAutoFarm)
 stopFarmBtn.MouseButton1Click:Connect(stopAutoFarm)
@@ -619,53 +708,47 @@ sellBtn.MouseButton1Click:Connect(function()
     statusText.Text = "📍 TP TO SELL"
 end)
 
--- ================ AIM ASSIST ================
-runService.RenderStepped:Connect(function()
-    if features.aimAssist and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-        local closestTarget = nil
-        local closestDistance = math.huge
-        local playerPos = player.Character.HumanoidRootPart.Position
-        
-        for _, obj in pairs(espObjects) do
-            if obj.target and obj.target:FindFirstChild("HumanoidRootPart") then
-                local targetPos = obj.target.HumanoidRootPart.Position
-                local dist = (targetPos - playerPos).Magnitude
-                
-                if dist < closestDistance and dist < 150 then
-                    closestDistance = dist
-                    closestTarget = obj.target
-                end
-            end
-        end
-        
-        if closestTarget and closestTarget:FindFirstChild("HumanoidRootPart") then
-            local targetPos = closestTarget.HumanoidRootPart.Position
-            camera.CFrame = CFrame.new(camera.CFrame.Position, targetPos)
-        end
+-- Nitty buttons
+toggleNittyBtn.MouseButton1Click:Connect(function()
+    features.nittyESP = not features.nittyESP
+    if features.nittyESP then
+        toggleNittyBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        toggleNittyBtn.Text = "👾 TOGGLE NITTY ESP [ON]"
+        nittyStatus.Text = "NITTY ESP: ON"
+        nittyStatus.TextColor3 = Color3.fromRGB(0, 255, 0)
+        updateNittyESP()
+    else
+        toggleNittyBtn.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
+        toggleNittyBtn.Text = "👾 TOGGLE NITTY ESP [OFF]"
+        nittyStatus.Text = "NITTY ESP: OFF"
+        nittyStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
+        updateNittyESP()
     end
 end)
 
--- ================ UPDATE LOOPS ================
--- ESP update loop
+refreshNittyBtn.MouseButton1Click:Connect(function()
+    statusText.Text = "🔄 REFRESHING NITTIES"
+    if features.nittyESP then
+        updateNittyESP()
+    else
+        findNitties()
+    end
+    statusText.Text = "✅ NITTIES REFRESHED"
+end)
+
+-- Cars buttons
+buyAllCarsBtn.MouseButton1Click:Connect(buyAllCars)
+bypassLevelBtn.MouseButton1Click:Connect(bypassLevel)
+findDealershipBtn.MouseButton1Click:Connect(findDealership)
+
+-- ================ UPDATE LOOPS (OPTIMIZED) ================
+-- Nitty ESP update (every 3 seconds to reduce lag)
 spawn(function()
     while true do
-        if features.esp then
-            updateESP()
+        if features.nittyESP then
+            updateNittyESP()
         end
-        task.wait(2)
-    end
-end)
-
--- Distance update loop
-runService.RenderStepped:Connect(function()
-    if features.esp and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-        local playerPos = player.Character.HumanoidRootPart.Position
-        for _, obj in pairs(espObjects) do
-            if obj.target and obj.target:FindFirstChild("HumanoidRootPart") and obj.distLabel then
-                local dist = (obj.target.HumanoidRootPart.Position - playerPos).Magnitude
-                obj.distLabel.Text = math.floor(dist) .. "m"
-            end
-        end
+        task.wait(3)
     end
 end)
 
@@ -674,7 +757,7 @@ spawn(function()
     while true do
         local count = #players:GetPlayers()
         playerCount.Text = "👥 " .. count
-        task.wait(1)
+        task.wait(2)
     end
 end)
 
@@ -684,25 +767,21 @@ player.CharacterAdded:Connect(function(newChar)
     if features.speedBoost and newChar:FindFirstChild("Humanoid") then
         newChar.Humanoid.WalkSpeed = 50
     end
-    if features.esp then
-        updateESP()
-    end
     statusText.Text = "CHARACTER: RESPAWNED"
     task.wait(1)
     statusText.Text = "STATUS: READY"
 end)
 
 -- Initialize
-print("✅ FastWare V1 Loaded - All features enabled")
+print("✅ FastWare V1 Loaded - Money target: player.Stats.Wallet")
 statusText.Text = "STATUS: READY"
-updateESP()
 
--- Show money locations on startup
+-- Check wallet
 task.wait(1)
-local moneyValues = findAllMoney()
-if #moneyValues > 0 then
-    statusText.Text = "💰 MONEY SYSTEM READY"
+local wallet = player:FindFirstChild("Stats") and player.Stats:FindFirstChild("Wallet")
+if wallet then
+    statusText.Text = "💰 WALLET FOUND: $" .. wallet.Value
 else
-    statusText.Text = "⚠️ NO MONEY FOUND"
+    statusText.Text = "⚠️ WALLET NOT FOUND"
     statusText.TextColor3 = Color3.fromRGB(255, 255, 0)
 end
